@@ -67,7 +67,6 @@ void Grid::Initialize()
 
 int Grid::CheckBoard()
 {
-	//FINISH CODING ME
 	//Horizontal win conditions
 	if (CheckLine(tl, tm, tr) != 0)
 	{
@@ -105,6 +104,24 @@ int Grid::CheckBoard()
 	{
 		return spots[(int)tr.x][(int)tr.y].value;
 	}
+
+	bool tie = true;
+	for (int y = 0; y < 3; y++)
+	{
+		for (int x = 0; x < 3; x++)
+		{
+			if (spots[x][y].value == 0)
+			{
+				tie = false;
+			}
+			
+		}
+	}
+	if (tie)
+	{
+		return 3;
+	}
+
 
 	return 0;
 }

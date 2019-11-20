@@ -5,7 +5,6 @@
 
 namespace Game
 {
-	
 	extern Texture2D crossTexture;
 	extern Texture2D circleTexture;
 	extern Texture2D blankTexture;
@@ -14,6 +13,7 @@ namespace Game
 	extern bool turnIsCross;
 
 	void Start();
+	void Restart();
 	void Update();
 	void Draw();
 	int AddGameObject(GameObject* g);
