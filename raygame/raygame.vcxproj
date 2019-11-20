@@ -145,6 +145,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="blank.png" />
+    <Image Include="board.png" />
     <Image Include="circle.png" />
     <Image Include="cross.png" />
   </ItemGroup>

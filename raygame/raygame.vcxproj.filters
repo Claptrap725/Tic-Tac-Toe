@@ -55,5 +55,8 @@
     <Image Include="blank.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="board.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

@@ -17,9 +17,9 @@ public:
 	float scale;
 	int index;
 
-	void Initialize();
-	void Update();
-	void ChangeTexture(Texture2D *texture);
-	void Draw();
+	void virtual Initialize();
+	void virtual Update();
+	void SetTexture(Texture2D *texture);
+	void virtual Draw();
 };
 

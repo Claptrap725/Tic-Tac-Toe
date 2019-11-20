@@ -42,7 +42,7 @@ void GameObject::Update()
 	//std::cout << "(" << position.x << ", " << position.y << ")";
 }
 
-void GameObject::ChangeTexture(Texture2D * _texture)
+void GameObject::SetTexture(Texture2D * _texture)
 {
 	texture = _texture;
 }
@@ -51,7 +51,9 @@ void GameObject::ChangeTexture(Texture2D * _texture)
 
 void GameObject::Draw()
 {
-	DrawTextureEx(*texture, position, rotation, scale, Color(WHITE));
-	DrawCircle(position.x + 25, position.y + 25, 5, Color(BLACK));
+	if (texture != nullptr)
+		DrawTextureEx(*texture, position, rotation, scale, Color(WHITE));
+	else
+		DrawCircle(position.x + 25, position.y + 25, 5, Color(BLACK));
 }
 

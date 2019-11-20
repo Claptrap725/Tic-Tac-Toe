@@ -8,27 +8,18 @@ namespace Game
 	Texture2D crossTexture;
 	Texture2D circleTexture;
 	Texture2D blankTexture;
-
-	GameObject spots[3][3];
+	Texture2D boardTexture;
+	Grid gameBoard;
+	bool turnIsCross;
 
 	void Start()
 	{
-		crossTexture = LoadTextureFromImage(LoadImage("cross.png"));
-		circleTexture = LoadTextureFromImage(LoadImage("circle.png"));
-		blankTexture = LoadTextureFromImage(LoadImage("blank.png"));
-		for (int y = 0; y < 3; y++)
-		{
-			for (int x = 0; x < 3; x++)
-			{
-				spots[x][y] = new GameObject;
-				spots[x][y].Initialize();
-				spots[x][y].ChangeTexture(&crossTexture);
-				spots[x][y].position.x += x*100 - 150;
-				spots[x][y].position.y += y*100 - 150;
-				spots[x][y].scale = 0.1f;
-
-			}
-		}
+		crossTexture = LoadTexture("cross.png");
+		circleTexture = LoadTexture("circle.png");
+		blankTexture = LoadTexture("blank.png");
+		boardTexture = LoadTexture("board.png");
+		turnIsCross = true;
+		gameBoard.Initialize();
 	}
 
 	void Update()
@@ -36,6 +27,16 @@ namespace Game
 		for (int i = 0; i < gameObjectsCount; i++) 
 		{
 			gameObjects[i]->Update();
+		}
+		int result = gameBoard.CheckBoard();
+		if (result == 1)
+		{
+			std::cout << "cross";
+		}
+		else if (result == 2)
+		{
+			std::cout << "circle";
+
 		}
 	}
 
@@ -57,6 +58,18 @@ namespace Game
 	void RemoveGameObject(int index)
 	{
 
+	}
+
+	void PlayerUsedTrun()
+	{
+		if (turnIsCross)
+		{
+			turnIsCross = false;
+		}
+		else
+		{
+			turnIsCross = true;
+		}
 	}
 
 }
