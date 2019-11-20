@@ -42,17 +42,14 @@ namespace Game
 			int result = gameBoard.CheckBoard();
 			if (result == 1)
 			{
-				std::cout << "cross";
 				winState = 1;
 			}
 			else if (result == 2)
 			{
-				std::cout << "circle";
 				winState = 2;
 			}
 			else if (result == 3)
 			{
-				std::cout << "tie";
 				winState = 3;
 			}
 
@@ -69,16 +66,28 @@ namespace Game
 		}
 		if (winState == 1)
 		{
-			DrawText("THE WINNER IS X!", 200, 50, 50, Color(GREEN));
+			DrawText("THE WINNER IS X!", 80, 150, 70, Color(GREEN));
 		}
 		else if (winState == 2)
 		{
-			DrawText("THE WINNER IS O!", 200, 50, 50, Color(GREEN));
+			DrawText("THE WINNER IS O!", 80, 150, 70, Color(GREEN));
 		}
 		else if (winState == 3)
 		{
-			DrawText("THE GAME IS A TIE!", 200, 50, 50, Color(GREEN));
+			DrawText("THE GAME IS A TIE!", 30, 150, 70, Color(GREEN));
 		}
+		else//winState == 0
+		{
+			if (turnIsCross)
+			{
+				DrawText("X's turn.", 300, 400, 30, Color(RED));
+			}
+			else 
+			{
+				DrawText("O's turn.", 300, 400, 30, Color(BLUE));
+			}
+		}
+		DrawText("Press \'R\' to restart.", 250, 360, 30, Color(BLACK));
 
 		if (IsKeyPressed(KEY_R))
 		{

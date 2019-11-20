@@ -73,5 +73,5 @@ void Tile::ChangeValue(int val)
 void Tile::Draw()
 {
 	GameObject::Draw();
-	DrawRectangleLinesEx(rect, 1, Color(RED));
+	//DrawRectangleLinesEx(rect, 1, Color(RED));
 }
