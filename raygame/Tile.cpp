@@ -10,24 +10,34 @@ Tile::~Tile()
 {
 }
 
+//called shorty after being created
 void Tile::Initialize()
 {
-	rotation = 0;
+	//start off being a blank tile
 	value = 0;
+	//create rectangle
 	rect = *new Rectangle();
+	//set rectangle size
 	rect.width = 70;
 	rect.height = 70;
+	//adjust rectangle to be centered on image
 	rect.x = position.x - 10;
 	rect.y = position.y - 10;
-	initialized = true;
 
-	index = Game::AddGameObject(this);
+
+	//we have been initialized
+	initialized = true;
+	//now add ourselves to the game
+	Game::AddGameObject(this);
 }
 
+//called every frame if initilized
 void Tile::Update()
 {
+	//if the user clicks
 	if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
 	{
+		//check if they clicked on us
 		if (CheckCollisionPointRec(GetMousePosition(), rect))
 		{
 			OnClick();
@@ -35,10 +45,13 @@ void Tile::Update()
 	}
 }
 
+//called when the mouse clicks within the bounds of rect
 void Tile::OnClick()
 {
+	//only do something if we haven't already been set
 	if (value == 0)
 	{
+		//set our value to be that of the current player
 		if (Game::turnIsCross)
 		{
 			ChangeValue(1);
@@ -47,14 +60,18 @@ void Tile::OnClick()
 		{
 			ChangeValue(2);
 		}
+		//Let Game know a player used their turn
 		Game::PlayerUsedTrun();
 	}
 }
 
+//changes value and updates texture
 void Tile::ChangeValue(int val)
 {
+	//update value variable
 	value = val;
 
+	//set our texture to the appropriate texture
 	if (value == 1) 
 	{
 		SetTexture(&Game::crossTexture);
@@ -67,11 +84,4 @@ void Tile::ChangeValue(int val)
 	{
 		SetTexture(&Game::blankTexture);
 	}
-
-}
-
-void Tile::Draw()
-{
-	GameObject::Draw();
-	//DrawRectangleLinesEx(rect, 1, Color(RED));
 }
