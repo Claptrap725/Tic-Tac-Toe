@@ -22,6 +22,11 @@ namespace Game
 	//true if it is X's turn
 	bool turnIsCross;
 
+	//User profile for player 1
+	User player1;
+	//User profile for player 2
+	User player2;
+
 	//called at the start of the game
 	void Start()
 	{
@@ -60,6 +65,21 @@ namespace Game
 
 			//Check to see if a player has won the game and set winState appropriately
 			winState = gameBoard.CheckBoard();
+			if (winState == 1)
+			{
+				player1.wins++;
+				player2.losses++;
+			}
+			else if (winState == 2)
+			{
+				player1.losses++;
+				player2.wins++;
+			}
+			else if (winState == 3)
+			{
+				player1.ties++;
+				player2.ties++;
+			}
 		}
 	}
 
@@ -71,6 +91,20 @@ namespace Game
 		{
 			gameObjects[i]->Draw();
 		}
+
+		//Draw Player 1 stats
+		DrawText(player1.username, 40, 50, 28, Color(BLACK));
+		DrawText("Wins: " + player1.wins, 40, 80, 20, Color(BLACK));
+		DrawText("Losses: " + player1.losses, 40, 100, 20, Color(BLACK));
+		DrawText("Ties: " + player1.ties, 40, 120, 20, Color(BLACK));
+		
+		//Draw Player 2 stats
+		DrawText(player2.username, 530, 50, 28, Color(BLACK));
+		DrawText("Wins: " + player2.wins, 530, 80, 20, Color(BLACK));
+		DrawText("Losses: " + player2.losses, 530, 100, 20, Color(BLACK));
+		DrawText("Ties: " + player2.ties, 530, 120, 20, Color(BLACK));
+
+
 
 		//Display who has won the game
 		if (winState == 1)

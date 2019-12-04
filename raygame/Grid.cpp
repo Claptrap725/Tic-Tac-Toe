@@ -58,6 +58,9 @@ void Grid::Initialize()
 	//texture in the middle of the screen
 	position.x = 253;
 	position.y = 70;
+	//default color
+	color = Color(WHITE);
+
 
 	//set shorcut variables to be the correct locations
 	tl.x = 0;

@@ -17,6 +17,8 @@ public:
 	Vector2 position;
 	//scale in world space
 	float scale;
+	//Color that will be applied to texture
+	Color color;
 
 	//called shorty after being created
 	void virtual Initialize();

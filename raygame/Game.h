@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include <iostream>
 #include "Grid.h"
+#include "User.h"
 
 namespace Game
 {
@@ -17,6 +18,11 @@ namespace Game
 	extern Grid gameBoard;
 	//true if it is X's turn
 	extern bool turnIsCross;
+
+	//User profile for player 1
+	extern User player1;
+	//User profile for player 2
+	extern User player2;
 
 	//called at the start of the game
 	void Start();

@@ -23,6 +23,8 @@ void Tile::Initialize()
 	//adjust rectangle to be centered on image
 	rect.x = position.x - 10;
 	rect.y = position.y - 10;
+	//default color
+	color = Color(WHITE);
 
 
 	//we have been initialized
@@ -75,13 +77,16 @@ void Tile::ChangeValue(int val)
 	if (value == 1) 
 	{
 		SetTexture(&Game::crossTexture);
+		color = Game::player1.color;
 	}
 	else if (value == 2)
 	{
 		SetTexture(&Game::circleTexture);
+		color = Game::player2.color;
 	}
 	else
 	{
 		SetTexture(&Game::blankTexture);
+		color = Color(WHITE);
 	}
 }

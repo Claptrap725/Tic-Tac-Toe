@@ -15,7 +15,8 @@ void GameObject::Initialize()
 	//go to middle of screen (default spawn point)
 	position.x = GetScreenWidth() / 2;
 	position.y = GetScreenHeight() / 2;
-
+	//default color
+	color = Color(WHITE);
 	//we have been initialized
 	initialized = true;
 	//now add ourselves to the game
@@ -38,7 +39,7 @@ void GameObject::Draw()
 {
 	//Draw a texture if we have one or just draw a circle
 	if (texture != nullptr)
-		DrawTextureEx(*texture, position, 0, scale, Color(WHITE));
+		DrawTextureEx(*texture, position, 0, scale, color);
 	else
 		DrawCircle(position.x + 25, position.y + 25, 5, Color(BLACK));
 }
