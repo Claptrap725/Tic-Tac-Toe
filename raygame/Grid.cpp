@@ -31,11 +31,17 @@ Grid::~Grid()
 //called shorty after being created
 void Grid::Initialize()
 {
+
 	//board goes in the middle of the screen
 	position.x = GetScreenWidth() / 2;
 	position.y = GetScreenHeight() / 2;
 	//set proper size scale
 	scale = 0.5f;
+
+
+	spots = new Tile*[Game::gridSize];
+	for (int i = 0; i < Game::gridSize; ++i)
+		spots[i] = new Tile[Game::gridSize];
 
 	//create all Tile objects
 	//used a double for loop to easily give each Tile

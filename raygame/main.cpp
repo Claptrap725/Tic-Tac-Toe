@@ -29,6 +29,7 @@ int main()
 	int screenHeight = 450;
 	InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
 	SetTargetFPS(60);
+	bool firstGameFrame = true;
 
 	Game::Start();
 	
@@ -45,14 +46,25 @@ int main()
 	//--------------------------------------------------------------------------------------
 	while (!WindowShouldClose())    // Detect window close button or ESC key
 	{
-		Game::Update();
+		// update one frame to prevent an accidental move
+		if (firstGameFrame)
+		{
+			firstGameFrame = false;
+			BeginDrawing();
+			ClearBackground(RAYWHITE);
+			EndDrawing();
+		}
+		else
+		{
+			Game::Update();
 
-		BeginDrawing();
-		ClearBackground(RAYWHITE);
+			BeginDrawing();
+			ClearBackground(RAYWHITE);
 
-		Game::Draw();
+			Game::Draw();
 
-		EndDrawing();
+			EndDrawing();
+		}
 	}
 
 	// De-Initialization

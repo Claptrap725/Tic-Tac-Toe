@@ -9,7 +9,9 @@ public:
 	~Grid();
 
 	//2D array of different places to make a move
-	Tile spots[3][3];
+	//Tile spots[3][3];
+	Tile** spots;
+
 
 	//called shorty after being created
 	void Initialize() override;

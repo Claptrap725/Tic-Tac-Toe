@@ -4,7 +4,7 @@
 #include "Grid.h"
 #include "User.h"
 
-namespace Game
+namespace Game 
 {
 	//stores the Texture for an X
 	extern Texture2D crossTexture;
@@ -18,6 +18,8 @@ namespace Game
 	extern Grid gameBoard;
 	//true if it is X's turn
 	extern bool turnIsCross;
+	//size of gameboard
+	extern int gridSize;
 
 	//User profile for player 1
 	extern User player1;
