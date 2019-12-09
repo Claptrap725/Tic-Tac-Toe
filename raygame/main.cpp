@@ -20,6 +20,7 @@ using namespace std;
 
 void GetTextInput(char* input, const char* msg);
 Color GetColorInput(const char* msg);
+int GetNumberInput(const char* msg);
 
 int main()
 {
@@ -30,6 +31,8 @@ int main()
 	InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
 	SetTargetFPS(60);
 	bool firstGameFrame = true;
+
+	Game::gridSize = GetNumberInput("What Grid size do you want to play on?");
 
 	Game::Start();
 	
@@ -190,4 +193,52 @@ Color GetColorInput(const char* msg)
 	}
 
 	return Color(WHITE);
+}
+
+int GetNumberInput(const char* msg)
+{
+	Rectangle two = { 210, 200, 80, 80 };
+	Rectangle three = { 310, 200, 80, 80 };
+	Rectangle four = { 410, 200, 80, 80 };
+	Rectangle five = { 510, 200, 80, 80 };
+
+	while (!WindowShouldClose())
+	{
+		if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+		{
+			if (CheckCollisionPointRec(GetMousePosition(), two))
+			{
+				return 2;
+			}
+			else if (CheckCollisionPointRec(GetMousePosition(), three))
+			{
+				return 3;
+			}
+			else if (CheckCollisionPointRec(GetMousePosition(), four))
+			{
+				return 4;
+			}
+			else if (CheckCollisionPointRec(GetMousePosition(), five))
+			{
+				return 5;
+			}
+		}
+
+		BeginDrawing();
+		ClearBackground(RAYWHITE);
+
+		DrawText(msg, 200, 140, 25, BLACK);
+		DrawRectangleRec(two, LIME);
+		DrawText("2", 240, 230, 40, BLACK);
+		DrawRectangleRec(three, LIME);
+		DrawText("3", 340, 230, 40, BLACK);
+		DrawRectangleRec(four, LIME);
+		DrawText("4", 440, 230, 40, BLACK);
+		DrawRectangleRec(five, LIME);
+		DrawText("5", 540, 230, 40, BLACK);
+
+		EndDrawing();
+	}
+
+	return 0;
 }

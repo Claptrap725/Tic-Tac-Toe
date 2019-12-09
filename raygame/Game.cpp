@@ -4,7 +4,7 @@
 namespace Game
 {
 	//list of all initialized gameObjects
-	GameObject* gameObjects[10];
+	GameObject* gameObjects[100];
 	//amount of initialized gameObjects
 	int gameObjectsCount;
 	//0 = game in progress, 1 = X wins, 2 = O wins, 3 = Tie
@@ -23,7 +23,7 @@ namespace Game
 	//true if it is X's turn
 	bool turnIsCross;
 	//size of gameboard
-	int gridSize = 3;
+	int gridSize = 1;
 
 	//User profile for player 1
 	User player1;
@@ -109,16 +109,16 @@ namespace Game
 		//
 
 		//Draw Player 2 stats
-		DrawText(player2.username, 530, 50, 28, Color(BLACK));
+		DrawText(player2.username, 620, 50, 28, Color(BLACK));
 
 		std::string wins2temp = "Wins: " + std::to_string(player2.wins);
-		DrawText(wins2temp.c_str(), 530, 80, 20, Color(BLACK));
+		DrawText(wins2temp.c_str(), 620, 80, 20, Color(BLACK));
 
 		std::string losses2temp = "Losses: " + std::to_string(player2.losses);
-		DrawText(losses2temp.c_str(), 530, 100, 20, Color(BLACK));
+		DrawText(losses2temp.c_str(), 620, 100, 20, Color(BLACK));
 
 		std::string ties2temp = "Ties: " + std::to_string(player2.ties);
-		DrawText(ties2temp.c_str(), 530, 120, 20, Color(BLACK));
+		DrawText(ties2temp.c_str(), 620, 120, 20, Color(BLACK));
 		//
 
 		//Display who has won the game
@@ -139,15 +139,15 @@ namespace Game
 			//Display who's turn it is
 			if (turnIsCross)
 			{
-				DrawText("X's turn.", 300, 400, 50, Color(player1.color));
+				DrawText("X's\nturn.", 620, 250, 50, Color(player1.color));
 			}
 			else 
 			{
-				DrawText("O's turn.", 300, 400, 50, Color(player2.color));
+				DrawText("O's\nturn.", 620, 250, 50, Color(player2.color));
 			}
 		}
 		//Let the player know how to restart the game
-		DrawText("Press \'R\' to restart.", 250, 360, 30, Color(BLACK));
+		DrawText("Press \'R\' to restart.", 30, 420, 30, Color(BLACK));
 
 		//restart if the player presses R. 
 		//This is at the end of the draw method so that the next frame 

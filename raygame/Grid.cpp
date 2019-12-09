@@ -32,11 +32,11 @@ Grid::~Grid()
 void Grid::Initialize()
 {
 
+	//set proper size scale
+	scale = 0.5f;
 	//board goes in the middle of the screen
 	position.x = GetScreenWidth() / 2;
 	position.y = GetScreenHeight() / 2;
-	//set proper size scale
-	scale = 0.5f;
 
 
 	spots = new Tile*[Game::gridSize];
@@ -46,24 +46,18 @@ void Grid::Initialize()
 	//create all Tile objects
 	//used a double for loop to easily give each Tile
 	//a unique location in relation to the Grid
-	for (int y = 0; y < 3; y++)
+	for (int y = 0; y < Game::gridSize; y++)
 	{
-		for (int x = 0; x < 3; x++)
+		for (int x = 0; x < Game::gridSize; x++)
 		{
 			spots[x][y] = *new Tile;
-			spots[x][y].position.x = position.x + x * 100 - 150;
-			spots[x][y].position.y = position.y + y * 100 - 150;
 			spots[x][y].scale = 0.1f;
+			spots[x][y].position.x = position.x + x * 80 - Game::gridSize * 40 + 40 - 40;
+			spots[x][y].position.y = position.y + y * 80 - Game::gridSize * 40 + 40 - 40;
 			spots[x][y].Initialize();
 			spots[x][y].SetTexture(&Game::blankTexture);
 		}
 	}
-	//apply our texture
-	SetTexture(&Game::boardTexture);
-	//adjust position to fit the visiable 
-	//texture in the middle of the screen
-	position.x = 253;
-	position.y = 70;
 	//default color
 	color = Color(WHITE);
 
@@ -95,95 +89,84 @@ void Grid::Initialize()
 	Game::AddGameObject(this);
 }
 
-//return 0 if game in progress, 1 if X won, 2 if O won, 3 if Tie
+//return 0 if the 3 Tiles aren't the same or are blank, 1 if all are X, 2 if all are O
 int Grid::CheckBoard()
 {
-	//Check to see if there is any 3 in a row that are
-	//the same and not blank by checking all possible
-	//winning conditions.
+	int tempVal = 0;
 
-	//Horizontal win conditions
-	if (CheckLine(tl, tm, tr) != 0)
+	//verticle check
+	for (int i = 0; i < Game::gridSize; i++)
 	{
-		return spots[(int)tl.x][(int)tl.y].value;
-	}
-	if (CheckLine(ml, mm, mr) != 0)
-	{
-		return spots[(int)ml.x][(int)ml.y].value;
-	}
-	if (CheckLine(bl, bm, br) != 0)
-	{
-		return spots[(int)bl.x][(int)bl.y].value;
-	}
-
-	//Vectical win conditions
-	if (CheckLine(tl, ml, bl) != 0)
-	{
-		return spots[(int)tl.x][(int)tl.y].value;
-	}
-	if (CheckLine(tm, mm, bm) != 0)
-	{
-		return spots[(int)tm.x][(int)tm.y].value;
-	}
-	if (CheckLine(tr, mr, br) != 0)
-	{
-		return spots[(int)tr.x][(int)tr.y].value;
-	}
-
-	//Diagonal win conditions
-	if (CheckLine(tl, mm, br) != 0)
-	{
-		return spots[(int)tl.x][(int)tl.y].value;
-	}
-	if (CheckLine(tr, mm, bl) != 0)
-	{
-		return spots[(int)tr.x][(int)tr.y].value;
-	}
-
-	//Now that we know there is no X or O that is
-	//3 in a row, check to see if all Tiles are
-	//used up. Then there is a tie.
-
-	
-	bool tie = true;
-	//search all tiles
-	for (int y = 0; y < 3; y++)
-	{
-		for (int x = 0; x < 3; x++)
+		tempVal = spots[i][0].value;
+		if (tempVal != 0)
 		{
-			if (spots[x][y].value == 0)
+			for (int j = 0; j < Game::gridSize; j++)
 			{
-				//value == 0 means that tile is blank
-				//so the game is not yet a tie
-				tie = false;
+				if (spots[i][j].value != tempVal)
+					break;
+
+				if (j + 1 == Game::gridSize)
+				{
+					return tempVal;
+				}
 			}
 		}
 	}
-	if (tie)
-	{
-		//return the vaule for a tie
-		return 3;
-	}
 
-	//no end condition. Game is still in progress
-	return 0;
-}
-
-//return 0 if the 3 Tiles aren't the same or are blank, 1 if all are X, 2 if all are O
-int Grid::CheckLine(Vector2 s1, Vector2 s2, Vector2 s3)
-{
-	//see if the 1st and 2nd Tiles are the same
-	if (spots[(int)s1.x][(int)s1.y].value == spots[(int)s2.x][(int)s2.y].value)
+	//horizontal check
+	for (int i = 0; i < Game::gridSize; i++)
 	{
-		//see if the 1st and 3rd Tiles are the same
-		if (spots[(int)s1.x][(int)s1.y].value == spots[(int)s3.x][(int)s3.y].value)
+		tempVal = spots[0][i].value;
+		if (tempVal != 0)
 		{
-			//all are equal
-			//return what the value is
-			return spots[(int)s1.x][(int)s1.y].value;
+			for (int j = 0; j < Game::gridSize; j++)
+			{
+				if (spots[j][i].value != tempVal)
+					break;
+
+				if (j + 1 == Game::gridSize)
+				{
+					return tempVal;
+				}
+			}
 		}
 	}
 
-	//they do not equal
+	//diagonal check (from top left)
+	tempVal = spots[0][0].value;
+	for (int i = 0; i < Game::gridSize; i++)
+	{
+		if (spots[i][i].value != tempVal)
+			break;
+
+		if (i + 1 == Game::gridSize)
+		{
+			return tempVal;
+		}
+	}
+
+	//diagonal check (from bottem left)
+	tempVal = spots[0][Game::gridSize - 1].value;
+	for (int i = 0; i < Game::gridSize; i++)
+	{
+		if (spots[i][Game::gridSize -1 - i].value != tempVal)
+			break;
+
+		if (i + 1 == Game::gridSize)
+		{
+			return tempVal;
+		}
+	}
+
+	//no win conditions
 	return 0;
+}
+
+//called every frame if initilized. Draws current texture
+void Grid::Draw()
+{
+	Rectangle rec = { GetScreenWidth() / 2, GetScreenHeight() / 2, Game::gridSize * 80, Game::gridSize * 80 };
+	rec.x -= 40 * Game::gridSize;
+	rec.y -= 40 * Game::gridSize;
+	DrawRectangleLinesEx(rec, 10, RAYWHITE);
 }

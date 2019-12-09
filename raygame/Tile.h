@@ -20,4 +20,7 @@ public:
 	void OnClick();
 	//changes value and updates texture
 	void ChangeValue(int val);
+	//called every frame if initilized. Draws current texture
+	void Draw() override;
+
 };

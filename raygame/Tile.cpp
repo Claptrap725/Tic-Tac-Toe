@@ -18,11 +18,11 @@ void Tile::Initialize()
 	//create rectangle
 	rect = *new Rectangle();
 	//set rectangle size
-	rect.width = 70;
-	rect.height = 70;
+	rect.width = 80;
+	rect.height = 80;
 	//adjust rectangle to be centered on image
-	rect.x = position.x - 10;
-	rect.y = position.y - 10;
+	rect.x = position.x;
+	rect.y = position.y;
 	//default color
 	color = Color(WHITE);
 
@@ -89,4 +89,14 @@ void Tile::ChangeValue(int val)
 		SetTexture(&Game::blankTexture);
 		color = Color(WHITE);
 	}
+}
+
+//called every frame if initilized. Draws current texture
+void Tile::Draw()
+{
+	Vector2 texturePos = position;
+	texturePos.x += 15;
+	texturePos.y += 15;
+	DrawTextureEx(*texture, texturePos, 0, scale, color);
+	DrawRectangleLinesEx(rect, 3, BLACK);
 }
