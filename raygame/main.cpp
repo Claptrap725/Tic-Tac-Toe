@@ -30,26 +30,30 @@ int main()
 	int screenHeight = 450;
 	InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
 	SetTargetFPS(60);
+
+	// used to fix bug at start of game
 	bool firstGameFrame = true;
 
+	// ask users which grid size they would like to play on
 	Game::gridSize = GetNumberInput("What Grid size do you want to play on?");
 
+	// initilize game based on size of grid
 	Game::Start();
 	
 	// Sign in
 	//--------------------------------------------------------------------------------------
-	GetTextInput(Game::player1.username, "Player 1: Please enter your username.");
-	Game::player1.color = GetColorInput("Player 1: Please pick your player color.");
+	GetTextInput(Game::players[0]->username, "Player 1: Please enter your username.");
+	Game::players[0]->color = GetColorInput("Player 1: Please pick your player color.");
 	
-	GetTextInput(Game::player2.username, "Player 2: Please enter your username.");
-	Game::player2.color = GetColorInput("Player 2: Please pick your player color.");
+	GetTextInput(Game::players[1]->username, "Player 2: Please enter your username.");
+	Game::players[1]->color = GetColorInput("Player 2: Please pick your player color.");
 
 
 	// Gameplay
 	//--------------------------------------------------------------------------------------
 	while (!WindowShouldClose())    // Detect window close button or ESC key
 	{
-		// update one frame to prevent an accidental move
+		// update Raylib on first frame to prevent an accidental move
 		if (firstGameFrame)
 		{
 			firstGameFrame = false;
@@ -59,8 +63,10 @@ int main()
 		}
 		else
 		{
+			// Update Game code
 			Game::Update();
 
+			// Draw and update Raylib
 			BeginDrawing();
 			ClearBackground(RAYWHITE);
 
@@ -77,6 +83,7 @@ int main()
 	return 0;
 }
 
+// Opens Text box window and promps user with msg and will set out to user input. Will close when user presses ENTER key
 void GetTextInput(char* output, const char* msg)
 {
 	Rectangle textBox = { GetScreenWidth() / 2 - 200, 180, 425, 50 };
@@ -85,16 +92,20 @@ void GetTextInput(char* output, const char* msg)
 	//Input loop
 	while (!WindowShouldClose())
 	{
+		// Get the key pressed this frame
 		int key = GetKeyPressed();
 
+		// Check if the key is a letter, number, or symbol
 		if ((key >= 32) && (key <= 125) && (letterCount < 15))
 		{
+			// add character to output and set key to null
 			output[letterCount] = (char)key;
 			letterCount++;
 			key = 0;
 		}
 		else if (IsKeyPressed(KEY_ENTER))
 		{
+			// When the user presses enter update Raylib one more time then close text box
 			BeginDrawing();
 			ClearBackground(RAYWHITE);
 
@@ -109,12 +120,13 @@ void GetTextInput(char* output, const char* msg)
 
 		if (IsKeyPressed(KEY_BACKSPACE))
 		{
+			// Set the last char to null and lower letterCount to backspace
 			letterCount--;
 			if (letterCount < 0) letterCount = 0;
 			output[letterCount] = '\0';
 		}
 
-
+		// draw currently typed text and update Raylib
 		BeginDrawing();
 		ClearBackground(RAYWHITE);
 
@@ -127,8 +139,10 @@ void GetTextInput(char* output, const char* msg)
 	}
 }
 
+// Opens Color picker window and returns with the Color that the user clicks on. Closes after returning
 Color GetColorInput(const char* msg)
 {
+	// create 8 buttons
 	Rectangle pink = {10, 200, 80, 80};
 	Rectangle red = { 110, 200, 80, 80 };
 	Rectangle orange = { 210, 200, 80, 80 };
@@ -138,8 +152,10 @@ Color GetColorInput(const char* msg)
 	Rectangle purple = { 610, 200, 80, 80 };
 	Rectangle brown = { 710, 200, 80, 80 };
 
+	//Input loop
 	while (!WindowShouldClose())
 	{
+		// when the user clicks check to see if they clicked on a button and return if they did
 		if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
 		{
 			if (CheckCollisionPointRec(GetMousePosition(), pink))
@@ -176,6 +192,7 @@ Color GetColorInput(const char* msg)
 			}
 		}
 
+		// Draw buttons and cause update for Raylib
 		BeginDrawing();
 		ClearBackground(RAYWHITE);
 
@@ -195,15 +212,19 @@ Color GetColorInput(const char* msg)
 	return Color(WHITE);
 }
 
+// Opens Number picker (only 2-5) Window and returns the Number clicked on by the user. Closes after returning
 int GetNumberInput(const char* msg)
 {
+	// Create four different buttons
 	Rectangle two = { 210, 200, 80, 80 };
 	Rectangle three = { 310, 200, 80, 80 };
 	Rectangle four = { 410, 200, 80, 80 };
 	Rectangle five = { 510, 200, 80, 80 };
 
+	//Input loop
 	while (!WindowShouldClose())
 	{
+		// when the user clicks check to see if they clicked on a button and return if they did
 		if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
 		{
 			if (CheckCollisionPointRec(GetMousePosition(), two))
@@ -224,6 +245,7 @@ int GetNumberInput(const char* msg)
 			}
 		}
 
+		// Draw buttons and cause update for Raylib
 		BeginDrawing();
 		ClearBackground(RAYWHITE);
 

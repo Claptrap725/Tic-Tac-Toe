@@ -9,7 +9,6 @@ public:
 	~Grid();
 
 	//2D array of different places to make a move
-	//Tile spots[3][3];
 	Tile** spots;
 
 

@@ -77,12 +77,12 @@ void Tile::ChangeValue(int val)
 	if (value == 1) 
 	{
 		SetTexture(&Game::crossTexture);
-		color = Game::player1.color;
+		color = Game::players[0]->color;
 	}
 	else if (value == 2)
 	{
 		SetTexture(&Game::circleTexture);
-		color = Game::player2.color;
+		color = Game::players[1]->color;
 	}
 	else
 	{
@@ -94,9 +94,22 @@ void Tile::ChangeValue(int val)
 //called every frame if initilized. Draws current texture
 void Tile::Draw()
 {
+	// if we are still blank
+	if (value == 0)
+	{
+		//check if they are hovering on us
+		if (CheckCollisionPointRec(GetMousePosition(), rect))
+		{
+			//Draw a hightlighted box
+			DrawRectangle(rect.x, rect.y, rect.width, rect.height, GOLD);
+		}
+	}
+
+	//Draws a box around each tile object to make up a grid pattern
 	Vector2 texturePos = position;
 	texturePos.x += 15;
 	texturePos.y += 15;
 	DrawTextureEx(*texture, texturePos, 0, scale, color);
 	DrawRectangleLinesEx(rect, 3, BLACK);
+
 }

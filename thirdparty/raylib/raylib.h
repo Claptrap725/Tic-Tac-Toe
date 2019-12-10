@@ -291,7 +291,7 @@
 #define GRAY       CLITERAL{ 130, 130, 130, 255 }   // Gray
 #define DARKGRAY   CLITERAL{ 80, 80, 80, 255 }      // Dark Gray
 #define YELLOW     CLITERAL{ 253, 249, 0, 255 }     // Yellow
-#define GOLD       CLITERAL{ 255, 203, 0, 255 }     // Gold
+#define GOLD       CLITERAL{ 255, 249, 0, 128 }     // Gold
 #define ORANGE     CLITERAL{ 255, 161, 0, 255 }     // Orange
 #define PINK       CLITERAL{ 255, 109, 194, 255 }   // Pink
 #define RED        CLITERAL{ 230, 41, 55, 255 }     // Red
