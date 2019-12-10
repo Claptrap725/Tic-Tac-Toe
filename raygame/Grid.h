@@ -11,7 +11,6 @@ public:
 	//2D array of different places to make a move
 	Tile** spots;
 
-
 	//called shorty after being created
 	void Initialize() override;
 

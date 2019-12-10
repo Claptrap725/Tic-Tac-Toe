@@ -13,8 +13,6 @@ namespace Game
 	extern Texture2D circleTexture;
 	//stores the Texture for a blank image
 	extern Texture2D blankTexture;
-	//stores the Texture for the game board
-	extern Texture2D boardTexture;
 	//the gameboard object
 	extern Grid gameBoard;
 	//true if it is X's turn

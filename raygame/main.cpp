@@ -1,4 +1,4 @@
-/*******************************************************************************************
+﻿/*******************************************************************************************
 *
 *   raylib [core] example - basic window
 *
@@ -43,9 +43,41 @@ int main()
 	// Sign in
 	//--------------------------------------------------------------------------------------
 	GetTextInput(Game::players[0]->username, "Player 1: Please enter your username.");
+	if (Game::players[0]->username[0] == '\0')
+	{
+		// if the user doesn't type anything
+		// ¯\_(o_o)_/¯
+		Game::players[0]->username[0] = '¯';
+		Game::players[0]->username[1] = '\\';
+		Game::players[0]->username[2] = '_';
+		Game::players[0]->username[3] = '(';
+		Game::players[0]->username[4] = 'o';
+		Game::players[0]->username[5] = '_';
+		Game::players[0]->username[6] = 'o';
+		Game::players[0]->username[7] = ')';
+		Game::players[0]->username[8] = '_';
+		Game::players[0]->username[9] = '/';
+		Game::players[0]->username[10] = '¯';
+	}
 	Game::players[0]->color = GetColorInput("Player 1: Please pick your player color.");
-	
+
 	GetTextInput(Game::players[1]->username, "Player 2: Please enter your username.");
+	if (Game::players[1]->username[0] == '\0')
+	{
+		// if the user doesn't type anything
+		// ¯\_(o_o)_/¯
+		Game::players[1]->username[0] = '¯';
+		Game::players[1]->username[1] = '\\';
+		Game::players[1]->username[2] = '_';
+		Game::players[1]->username[3] = '(';
+		Game::players[1]->username[4] = 'o';
+		Game::players[1]->username[5] = '_';
+		Game::players[1]->username[6] = 'o';
+		Game::players[1]->username[7] = ')';
+		Game::players[1]->username[8] = '_';
+		Game::players[1]->username[9] = '/';
+		Game::players[1]->username[10] = '¯';
+	}
 	Game::players[1]->color = GetColorInput("Player 2: Please pick your player color.");
 
 

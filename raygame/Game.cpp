@@ -17,8 +17,6 @@ namespace Game
 	Texture2D circleTexture;
 	//stores the Texture for a blank image
 	Texture2D blankTexture;
-	//stores the Texture for the game board
-	Texture2D boardTexture;
 	//the gameboard object
 	Grid gameBoard;
 	//true if it is X's turn
@@ -36,7 +34,6 @@ namespace Game
 		crossTexture = LoadTexture("cross.png");
 		circleTexture = LoadTexture("circle.png");
 		blankTexture = LoadTexture("blank.png");
-		boardTexture = LoadTexture("board.png");
 		//X goes first
 		turnIsCross = true;
 		//initialize the players
