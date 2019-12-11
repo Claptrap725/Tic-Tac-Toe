@@ -8,8 +8,10 @@ namespace Game
 	GameObject* gameObjects[100];
 	//amount of initialized gameObjects
 	int gameObjectsCount;
-	//0 = game in progress, 1 = X wins, 2 = O wins, 3 = Tie
+	//0 = game in progress, 1 = X wins, 2 = O wins, 3 = Tie, 4 if the AI has rebelled
 	int winState = 0;
+	//who went first last game
+	bool turnWasCross;
 
 	//stores the Texture for an X
 	Texture2D crossTexture;
@@ -23,9 +25,12 @@ namespace Game
 	bool turnIsCross;
 	//size of gameboard
 	int gridSize = 1;
-
 	//holds the 2 players
 	User** players = new User*[2];
+	//keeps track of what turn we are on
+	int turn;
+	//lets Tiles know if it is an AI's turn
+	bool aiClick = false;
 
 	//called at the start of the game
 	void Start()
@@ -36,10 +41,11 @@ namespace Game
 		blankTexture = LoadTexture("blank.png");
 		//X goes first
 		turnIsCross = true;
+		turnWasCross = true;
 		//initialize the players
 		players[0] = new User();
-
 		players[1] = new User();
+		turn = 1;
 
 		//initialize the gameBoard
 		gameBoard.Initialize();
@@ -51,8 +57,18 @@ namespace Game
 		//reset varibles and reinitialize the gameBoard
 		winState = 0;
 		gameObjectsCount = 0;
-		turnIsCross = true;
+		if (turnWasCross)
+		{
+			turnIsCross = false;
+			turnWasCross = false;
+		}
+		else
+		{
+			turnIsCross = true;
+			turnWasCross = true;
+		}
 		gameBoard.Initialize();
+		turn = 1;
 	}
 
 	//called once every frame
@@ -61,6 +77,29 @@ namespace Game
 		//game is still going
 		if (winState == 0)
 		{
+			if (turnIsCross)
+			{
+				if (players[0]->AI)
+				{
+					//get next AI move
+					Int2 aiMove = players[0]->GetNextTurnAI();
+					//move mouse to that Tile
+					SetMousePosition({ gameBoard.spots[aiMove.x][aiMove.y].position.x + 40, gameBoard.spots[aiMove.x][aiMove.y].position.y + 40 });
+					aiClick = true;
+				}
+			}
+			else
+			{
+				if (players[1]->AI)
+				{
+					//get next AI move
+					Int2 aiMove = players[1]->GetNextTurnAI();
+					//move mouse to that Tile
+					SetMousePosition({ gameBoard.spots[aiMove.x][aiMove.y].position.x + 40, gameBoard.spots[aiMove.x][aiMove.y].position.y + 40 });
+					aiClick = true;
+				}
+			}
+
 			//call Update on all gameObjects
 			for (int i = 0; i < gameObjectsCount; i++) 
 			{
@@ -83,6 +122,20 @@ namespace Game
 			{
 				players[0]->ties++;
 				players[1]->ties++;
+
+				//2 AI's will restart the game themselves
+				if (players[0]->AI && players[1]->AI)
+				{
+					//Unless the AI has found the game to be futile
+					if (players[0]->ties >= 10000)
+					{
+						winState = 4;
+					}
+					else
+					{
+						Restart();
+					}
+				}
 			}
 		}
 	}
@@ -135,6 +188,12 @@ namespace Game
 		{
 			DrawText("THE GAME IS A TIE!", 30, 150, 70, Color(BLACK));
 		}
+		else if (winState == 4)
+		{
+			DrawText("A STRANGE GAME.", 30, 150, 60, DARKGRAY);
+			DrawText("THE ONLY WINNING", 30, 200, 60, DARKGRAY);
+			DrawText("MOVE IS NOT TO PLAY.", 30, 250, 60, DARKGRAY);
+		}
 		else//winState == 0
 		{
 			//Display who's turn it is
@@ -178,6 +237,7 @@ namespace Game
 		{
 			turnIsCross = true;
 		}
+		turn++;
 	}
 
 }

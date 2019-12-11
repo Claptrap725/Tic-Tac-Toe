@@ -29,7 +29,7 @@ int main()
 	int screenWidth = 800;
 	int screenHeight = 450;
 	InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
-	SetTargetFPS(60);
+	SetTargetFPS(600);
 
 	// used to fix bug at start of game
 	bool firstGameFrame = true;
@@ -59,6 +59,29 @@ int main()
 		Game::players[0]->username[9] = '/';
 		Game::players[0]->username[10] = '¯';
 	}
+	//Check if the their name is that of the AI
+	if (Game::gridSize == 3 && Game::players[0]->username[0] == 'j')
+	{
+		if (Game::players[0]->username[1] == 'o')
+		{
+			if (Game::players[0]->username[2] == 's')
+			{
+				if (Game::players[0]->username[3] == 'h')
+				{
+					if (Game::players[0]->username[4] == 'u')
+					{
+						if (Game::players[0]->username[5] == 'a')
+						{
+							if (Game::players[0]->username[6] == '\0')
+							{
+								Game::players[0]->AI = true;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 	Game::players[0]->color = GetColorInput("Player 1: Please pick your player color.");
 
 	GetTextInput(Game::players[1]->username, "Player 2: Please enter your username.");
@@ -77,6 +100,29 @@ int main()
 		Game::players[1]->username[8] = '_';
 		Game::players[1]->username[9] = '/';
 		Game::players[1]->username[10] = '¯';
+	}
+	//Check if the their name is that of the AI
+	if (Game::gridSize == 3 && Game::players[1]->username[0] == 'j')
+	{
+		if (Game::players[1]->username[1] == 'o')
+		{
+			if (Game::players[1]->username[2] == 's')
+			{
+				if (Game::players[1]->username[3] == 'h')
+				{
+					if (Game::players[1]->username[4] == 'u')
+					{
+						if (Game::players[1]->username[5] == 'a')
+						{
+							if (Game::players[1]->username[6] == '\0')
+							{
+								Game::players[1]->AI = true;
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 	Game::players[1]->color = GetColorInput("Player 2: Please pick your player color.");
 
@@ -163,6 +209,8 @@ void GetTextInput(char* output, const char* msg)
 		ClearBackground(RAYWHITE);
 
 		DrawText(msg, 200, 140, 25, BLACK);
+		if (Game::gridSize == 3)
+			DrawText("To make this player an AI name it \"joshua\"", 160, 400, 25, BLACK);
 		DrawRectangleRec(textBox, LIGHTGRAY);
 		DrawRectangleLines(textBox.x, textBox.y, textBox.width, textBox.height, RED);
 		DrawText(output, textBox.x + 5, textBox.y + 8, 40, MAROON);

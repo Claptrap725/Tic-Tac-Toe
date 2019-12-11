@@ -4,6 +4,8 @@
 #include "Grid.h"
 #include "User.h"
 
+
+
 // Used for everything Gameplay
 namespace Game
 {
@@ -21,7 +23,10 @@ namespace Game
 	extern int gridSize;
 	//holds the 2 players
 	extern User** players;
-
+	//keeps track of what turn we are on
+	extern int turn;
+	//lets Tiles know if it is an AI's turn
+	extern bool aiClick;
 
 	//called at the start of the game
 	void Start();

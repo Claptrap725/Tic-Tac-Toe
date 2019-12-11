@@ -13,6 +13,7 @@ Grid::~Grid()
 //called shorty after being created
 void Grid::Initialize()
 {
+	delete[] spots;
 	//set proper size scale
 	scale = 0.5f;
 	//board goes in the middle of the screen

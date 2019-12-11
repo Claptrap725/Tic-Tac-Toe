@@ -37,11 +37,12 @@ void Tile::Initialize()
 void Tile::Update()
 {
 	//if the user clicks
-	if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+	if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) || Game::aiClick)
 	{
 		//check if they clicked on us
 		if (CheckCollisionPointRec(GetMousePosition(), rect))
 		{
+			Game::aiClick = false;
 			OnClick();
 		}
 	}

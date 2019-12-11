@@ -329,6 +329,12 @@
     #endif
 #endif
 
+//Int2 type
+struct Int2 {
+	int x;
+	int y;
+};
+
 // Vector2 type
 typedef struct Vector2 {
     float x;
